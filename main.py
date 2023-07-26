@@ -98,7 +98,7 @@ def random_cafe():
         json_file = jsonify(cafe={f"{column.name}": getattr(rd_cafe, column.name)
                                   for column in rd_cafe.__table__.columns})
         return json_file
-    return jsonify(error="not found", message="there is no cafe entry at the database.")
+    return jsonify(error="not found", message="there is no cafe entry at the database."), 404
 
 
 @app.route("/cafe/all")
@@ -108,7 +108,7 @@ def all_cafes():
         json_file = jsonify(cafes=[{f"{column.name}": getattr(cafe, column.name) for column in cafe.__table__.columns}
                                    for cafe in all_cafes_list])
         return json_file
-    return jsonify(error="not found", message="there is no cafe entry at the database.")
+    return jsonify(error="not found", message="there is no cafe entry at the database."), 404
 
 
 @app.route("/cafe/search")
