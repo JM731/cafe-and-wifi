@@ -64,8 +64,7 @@ class AddCafeForm(FlaskForm):
 
 table_columns_names = Cafe.__table__.columns.keys()[1:]
 
-if __name__ == '__main__':
-    with app.app_context():
+with app.app_context():
         db.create_all()
 
 
