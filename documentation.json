@@ -2,7 +2,7 @@
   {
     "type": "get",
     "name": "Get the data for all cafes",
-    "endpoint": "http://127.0.0.1:5000/cafe/add",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/add",
     "description": "None",
     "request_body": "None",
     "response_example": "None",
@@ -11,7 +11,7 @@
   {
     "type": "get",
     "name": "Get the data for a random cafe",
-    "endpoint": "http://127.0.0.1:5000/cafe/random",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/random",
     "description": "None",
     "request_body": "None",
     "response_example": {
@@ -34,7 +34,7 @@
   {
     "type": "get",
     "name": "Search for cafes by location",
-    "endpoint": "http://127.0.0.1:5000/cafe/search",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/search",
     "description": "Get a list containing the data for all cafes in a given location.",
     "request_body": ["loc", "Name of the location to search for cafes (e.g., London Bridge)"],
     "response_example": {
@@ -75,7 +75,7 @@
   {
     "type": "post",
     "name": "Add a new cafe to the database",
-    "endpoint": "http://127.0.0.1:5000/cafe/add",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/add",
     "description": "Create a new entry for a cafe in the database, all keys are required to create a new entry.",
     "request_body": [
       ["name", "string", "Name of the cafe to be added, must not match previous entries."],
@@ -95,7 +95,7 @@
   {
     "type": "patch",
     "name": "Update a cafe's coffee price",
-    "endpoint": "http://127.0.0.1:5000/cafe/update-price/<cafe-id>",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/update-price/<cafe-id>",
     "description": "Update a cafe's coffee price by its id.",
     "request_body": ["new_price", "New coffee price, must be a non-negative number (e.g., 2.50)"],
     "response_example": "None",
@@ -107,7 +107,7 @@
   {
     "type": "delete",
     "name": "Delete a cafe",
-    "endpoint": "http://127.0.0.1:5000/cafe/report-closed/<cafe-id>",
+    "endpoint": "https://cafe-and-wifi-jqew.onrender.com/cafe/report-closed/<cafe-id>",
     "description": "Delete a cafe and all its data from the database. An API key must be provided for the request to be authorized.",
     "request_body": ["api-key", "Valid API key (API key is fwjMpyXFAYP7H8RhkkAavdFPK9rgfC2Q, for testing purposes)"],
     "response_example": "None",
