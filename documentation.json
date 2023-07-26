@@ -17,7 +17,7 @@
     "response_example": {
       "cafe": {
         "can_take_calls": false,
-        "coffee_price": "1.0",
+        "coffee_price": "£2.80",
         "has_sockets": true,
         "has_toilet": false,
         "has_wifi": true,
