@@ -1,0 +1,119 @@
+[
+  {
+    "type": "get",
+    "name": "Get the data for all cafes",
+    "endpoint": "http://127.0.0.1:5000/cafe/add",
+    "description": "None",
+    "request_body": "None",
+    "response_example": "None",
+    "errors": "None"
+  },
+  {
+    "type": "get",
+    "name": "Get the data for a random cafe",
+    "endpoint": "http://127.0.0.1:5000/cafe/random",
+    "description": "None",
+    "request_body": "None",
+    "response_example": {
+      "cafe": {
+        "can_take_calls": false,
+        "coffee_price": "1.0",
+        "has_sockets": true,
+        "has_toilet": false,
+        "has_wifi": true,
+        "id": 20,
+        "img_url": "https://lh3.googleusercontent.com/p/AF1QipNlBWFgXBiP9YjKARy4dgjHGePOmtsfuQPRwGvb=s0",
+        "location": "Shoreditch",
+        "map_url": "https://goo.gl/maps/gYX271NxyuawiMcK8",
+        "name": "The Bike Shed",
+        "seats": "10-20"
+        }
+    },
+    "errors": "None"
+  },
+  {
+    "type": "get",
+    "name": "Search for cafes by location",
+    "endpoint": "http://127.0.0.1:5000/cafe/search",
+    "description": "Get a list containing the data for all cafes in a given location.",
+    "request_body": ["loc", "Name of the location to search for cafes (e.g., London Bridge)"],
+    "response_example": {
+      "cafes": [
+        {
+            "can_take_calls": true,
+            "coffee_price": "£2.00",
+            "has_sockets": true,
+            "has_toilet": true,
+            "has_wifi": false,
+            "id": 1,
+            "img_url": "https://atlondonbridge.com/wp-content/uploads/2019/02/Pano_9758_9761-Edit-190918_LTS_Science_Gallery-Medium-Crop-V2.jpg",
+            "location": "London Bridge",
+            "map_url": "https://g.page/scigallerylon?share",
+            "name": "Science Gallery London",
+            "seats": "50+"
+        },
+        {
+            "can_take_calls": true,
+            "coffee_price": "£2.30",
+            "has_sockets": true,
+            "has_toilet": true,
+            "has_wifi": true,
+            "id": 9,
+            "img_url": "https://lh3.googleusercontent.com/p/AF1QipMrdTyRRozGBltwxAseQ4QeuNhbED6meQXlCPsx=s0",
+            "location": "London Bridge",
+            "map_url": "https://goo.gl/maps/LU1imQzBCRLFBxKUA",
+            "name": "The Southwark Cathedral Cafe",
+            "seats": "20-30"
+        }
+    ]
+  },
+    "errors": {
+      "400 Bad request": "This error occurs when there is some mistake in your request.",
+      "404 Not Found": "This error occurs when a cafe was not found in the given location."
+    }
+  },
+  {
+    "type": "post",
+    "name": "Add a new cafe to the database",
+    "endpoint": "http://127.0.0.1:5000/cafe/add",
+    "description": "Create a new entry for a cafe in the database, all keys are required to create a new entry.",
+    "request_body": [
+      ["name", "string", "Name of the cafe to be added, must not match previous entries."],
+      ["location", "string", "Location of the cafe"],
+      ["seats", "string", "Estimated number of seats available in the cafe, can be an interval of numbers (e.g., 30-40)"],
+      ["has_toilet", "bool", "True if the cafe has toilets, False otherwise"],
+      ["has_sockets", "bool", "True if the cafe has sockets for customer use, False otherwise"],
+      ["has_wifi", "bool", "True if the cafe has Wi-Fi access available to customers, False otherwise"],
+      ["can_take_calls", "bool", "True if customers are allowed to make audio/video calls, False otherwise"],
+      ["coffee_price", "float", "The price for a plain coffee beverage, must be a non-negative number"],
+      ["map_url", "string", "Google Maps URL for the cafe"],
+      ["img_url", "string", "An URL containing a photo of the cafe"]
+    ],
+    "response_example": "None",
+    "errors": {"400 Bad Request": "This error occurs when there is some mistake in your request."}
+  },
+  {
+    "type": "patch",
+    "name": "Update a cafe's coffee price",
+    "endpoint": "http://127.0.0.1:5000/cafe/update-price/<cafe-id>",
+    "description": "Update a cafe's coffee price by its id.",
+    "request_body": ["new_price", "New coffee price, must be a non-negative number (e.g., 2.50)"],
+    "response_example": "None",
+    "errors": {
+      "400 Bad request": "This error occurs when there is some mistake in your request.",
+      "404 Not Found": "This error occurs when there is no cafe with the given id in the database."
+    }
+  },
+  {
+    "type": "delete",
+    "name": "Delete a cafe",
+    "endpoint": "http://127.0.0.1:5000/cafe/report-closed/<cafe-id>",
+    "description": "Delete a cafe and all its data from the database. An API key must be provided for the request to be authorized.",
+    "request_body": ["api-key", "Valid API key (API key is fwjMpyXFAYP7H8RhkkAavdFPK9rgfC2Q, for testing purposes)"],
+    "response_example": "None",
+    "errors": {
+      "403 Forbidden": "This error occurs when there is some mistake in your request or the API key provided is invalid.",
+      "404 Not Found": "This error occurs when there is no cafe with the given id in the database."
+    }
+  }
+]

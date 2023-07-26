@@ -1,0 +1,19 @@
+<header class="p-3 cnavbar">
+    <div class="d-flex flex-wrap align-items-center justify-content-center mx-4 justify-content-lg-start">
+      <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <span class="fs-4 cnav-text">Coffee and Wi-fi</span>
+      </a>
+
+      <ul class="nav nav-pills">
+          {% if home_button %}
+        <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link cnav-text">Home</a></li>
+          {% endif %}
+          {% if add_button %}
+        <li class="nav-item"><a href="{{ url_for('add_cafe') }}" class="nav-link cnav-text">Add a Cafe</a></li>
+          {% endif %}
+          {% if api_button %}
+          <li class="nav-item"><a href="{{ url_for('api_doc') }}" class="nav-link cnav-text">API</a></li>
+          {% endif %}
+      </ul>
+    </div>
+</header>

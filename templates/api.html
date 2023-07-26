@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as macro %}
+{% block title %}
+    API Documentation
+{% endblock %}
+{% block content %}
+    {% include 'header.html' %}
+    <div class="container mt-4">
+        <div class="mb-4">
+            <h1>Coffee and Wi-fi API</h1>
+        </div>
+        {% for request_method in methods %}
+            <div class="mb-4">
+                {{ macro.generate_request_doc(**request_method) }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% set home_button = True %}
+{% set add_button = True %}
+{% set add_custom_class = True %}

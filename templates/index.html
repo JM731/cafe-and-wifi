@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %} Coffee and Wi-Fi {% endblock %}
+{% block content %}
+{% include 'header.html' %}
+<div class="container pt-3">
+    <div class="row">
+    <div class="col-sm-12">
+      <h1 class="">All Cafes</h1>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+        {% for column in display_names %}
+      <th scope="col"> {{ column }}</th>
+        {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for cafe in cafe_list %}
+    <tr>
+      {% for column in cafe_columns %}
+        {% if column == 'map_url' %}
+            <td class="colorfy"><a class="a-table" href="{{ cafe[column] }}">Maps Link</a></td>
+        {% elif column == 'img_url' %}
+            <td class="colorfy"><a class="a-table" href="{{ cafe[column] }}">Image</a></td>
+        {% else %}
+            <td class="colorfy">{{ cafe[column] if cafe[column] is not boolean else 'Yes' if cafe[column] else 'No' }}</td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+      </div>
+  </div>
+{% endblock %}
+{% set add_button = True %}
+{% set api_button = True %}
