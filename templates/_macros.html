@@ -36,7 +36,7 @@
     {{ name }}
 </h2>
 <div class="container-fluid px-3">
-    <div class="d-flex align-items-center px-3 py-2 my-3 url-display">
+    <div class="d-flex overflow-auto px-3 py-2 my-3 url-display">
         <span class="align-middle"> {{ endpoint }}</span>
     </div>
     {% if description != "None" %}
@@ -69,7 +69,7 @@
     {% elif type == "delete" or type == "patch" or (type == "get" and "Search" in name) %}
     <h5 class="mt-4">Query Parameters</h5>
     <hr>
-    <div class="container-fluid px-0">
+    <div class="container-fluid overflow-auto px-0">
         <div class="row">
             <div class="col-3 fw-bold">{{ request_body[0] }}</div>
             <div class="col-9">{{ request_body[1] }}</div>
