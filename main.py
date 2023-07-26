@@ -64,8 +64,7 @@ class AddCafeForm(FlaskForm):
 
 table_columns_names = Cafe.__table__.columns.keys()[1:]
 
-if __name__ == '__main__':
-    with app.app_context():
+with app.app_context():
         db.create_all()
 
 
@@ -93,17 +92,23 @@ def add_cafe():
 
 @app.route("/cafe/random")
 def random_cafe():
-    rd_cafe = random.choice(db.session.query(Cafe).all())
-    json_file = jsonify(cafe={f"{column.name}": getattr(rd_cafe, column.name) for column in rd_cafe.__table__.columns})
-    return json_file
+    cafe_list = db.session.query(Cafe).all()
+    if cafe_list:
+        rd_cafe = random.choice(db.session.query(Cafe).all())
+        json_file = jsonify(cafe={f"{column.name}": getattr(rd_cafe, column.name)
+                                  for column in rd_cafe.__table__.columns})
+        return json_file
+    return jsonify(error="not found", message="there is no cafe entry at the database."), 404
 
 
 @app.route("/cafe/all")
 def all_cafes():
     all_cafes_list = db.session.query(Cafe).all()
-    json_file = jsonify(cafes=[{f"{column.name}": getattr(cafe, column.name) for column in cafe.__table__.columns}
-                               for cafe in all_cafes_list])
-    return json_file
+    if all_cafes_list:
+        json_file = jsonify(cafes=[{f"{column.name}": getattr(cafe, column.name) for column in cafe.__table__.columns}
+                                   for cafe in all_cafes_list])
+        return json_file
+    return jsonify(error="not found", message="there is no cafe entry at the database."), 404
 
 
 @app.route("/cafe/search")
