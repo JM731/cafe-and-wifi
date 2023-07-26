@@ -5,12 +5,10 @@
 {% endblock %}
 {% block content %}
     {% include 'header.html' %}
-    <div class="container mt-4">
-        <div class="mb-4">
-            <h1>Coffee and Wi-fi API</h1>
-        </div>
+    <div class="container-fluid mt-4 px-5">
+        <h1>Coffee and Wi-fi API</h1>
         {% for request_method in methods %}
-            <div class="mb-4">
+            <div class="my-4">
                 {{ macro.generate_request_doc(**request_method) }}
             </div>
         {% endfor %}

@@ -1,103 +1,98 @@
 {% macro render_form_field(field, div_class_str, form_label_class, form_field_class, form_text) %}
-    {% if field.type == "BooleanField" %}
-        <div class="{{ div_class_str }}">
-            {{ render_field_errors(field) }}
-            <div class="form-check">
-                {{ field.label(class_=form_label_class) }}
-                {{ field(class_=form_field_class) }}
-            </div>
-        </div>
-    {% else %}
-        <div class="{{ div_class_str }}">
-            {{ field.label(class_=form_label_class) }}
-            {{ field(class_=form_field_class) }}
-            {{ render_field_errors(field) }}
-        </div>
-    {% endif %}
+{% if field.type == "BooleanField" %}
+<div class="{{ div_class_str }}">
+    {{ render_field_errors(field) }}
+    <div class="form-check">
+        {{ field.label(class_=form_label_class) }}
+        {{ field(class_=form_field_class) }}
+    </div>
+</div>
+{% else %}
+<div class="{{ div_class_str }}">
+    {{ field.label(class_=form_label_class) }}
+    {{ field(class_=form_field_class) }}
+    {{ render_field_errors(field) }}
+</div>
+{% endif %}
 {% endmacro %}
 
 {% macro render_field_errors(field) %}
-    {% if field.type == "BooleanField" %}
-        {% for err in field.errors %}
-            <p class="small text-dark">{{ err }}</p>
-        {% endfor %}
-    {% else %}
-        {% for err in field.errors %}
-            <div class="alert alert-dark custom-alert mt-2" role="alert">
-                <p>{{ err }}</p>
-            </div>
-        {% endfor %}
-    {% endif %}
+{% if field.type == "BooleanField" %}
+{% for err in field.errors %}
+<p class="small text-dark">{{ err }}</p>
+{% endfor %}
+{% else %}
+{% for err in field.errors %}
+<div class="alert alert-dark custom-alert mt-2" role="alert">
+    <p>{{ err }}</p>
+</div>
+{% endfor %}
+{% endif %}
 {% endmacro %}
 
 {% macro generate_request_doc(type, name, endpoint, description, request_body, response_example, errors) %}
-    <h2>
-        <span class="{{ type }}">{{ type.upper() }}</span>
-        {{ name }}
-    </h2>
-    <div class="container px-3">
-        <div class="d-flex align-items-center px-3 py-2 my-3 url-display">
-            <span class="align-middle"> {{ endpoint }}</span>
-        </div>
-        {% if description != "None" %}
-        <div class="d-flex px-3">
-            <p>{{ description }}<p>
-        </div>
+<h2>
+    <span class="{{ type }}">{{ type.upper() }}</span>
+    {{ name }}
+</h2>
+<div class="container-fluid px-3">
+    <div class="d-flex align-items-center px-3 py-2 my-3 url-display">
+        <span class="align-middle"> {{ endpoint }}</span>
+    </div>
+    {% if description != "None" %}
+    <p>{{ description }}
+    <p>
         {% endif %}
         {% if type == "post" %}
-            <h5>Request Body</h5>
-            <hr>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="api fw-bold" scope="col">Key</th>
-                        <th class="api fw-bold" scope="col">Type</th>
-                        <th class="api fw-bold" scope="col">Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in request_body %}
-                        <tr>
-                            {% for item in row %}
-                                <td class="api">{{ item }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% elif type == "delete" or type == "patch" or (type == "get" and "Search" in name) %}
-            <div class="container py-3">
-                <h5>Query Parameters</h5>
-                <hr>
-                <div class="container px-0">
-                    <div class="row">
-                        <div class="col-sm-3 fw-bold">{{ request_body[0] }}</div>
-                        <div class="col-sm-9">{{ request_body[1] }}</div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        {% if response_example != "None" %}
-            <div class="d-grid py-3">
-                <h5>Example response</h5>
-                <div class="d-flex px-3 py-2 code-display">
-                    <pre class="code-black">{{ response_example | tojson(indent=4) }}</pre>
-                </div>
-            </div>
-        {% endif %}
-        {% if errors != "None" %}
-            <div class="container py-3">
-                <h5>Possible Errors</h5>
-                <ul>
-                {% for error in errors %}
-                    <li>
-                        <code class="code-black">{{ error }}</code>
-                        <br>
-                        <p>{{ errors[error] }}</p>
-                    </li>
+    <h5 class="mt-4">Request Body</h5>
+    <hr>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="api fw-bold" scope="col">Key</th>
+                <th class="api fw-bold" scope="col">Type</th>
+                <th class="api fw-bold" scope="col">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in request_body %}
+            <tr>
+                {% for item in row %}
+                <td class="api">{{ item }}</td>
                 {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% elif type == "delete" or type == "patch" or (type == "get" and "Search" in name) %}
+    <h5 class="mt-4">Query Parameters</h5>
+    <hr>
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col-3 fw-bold">{{ request_body[0] }}</div>
+            <div class="col-9">{{ request_body[1] }}</div>
+        </div>
+    </div>
+    {% endif %}
+    {% if response_example != "None" %}
+    <h5 class="mt-4">Example response</h5>
+    <div class="d-flex px-3 py-2 code-display">
+        <pre class="code-black">{{ response_example | tojson(indent=4) }}</pre>
+    </div>
+    {% endif %}
+    {% if errors != "None" %}
+        <h5 class="mt-4">Possible Errors</h5>
+        <ul>
+            {% for error in errors %}
+            <li>
+                <code class="code-black">{{ error }}</code>
+                <br>
+                <p>{{ errors[error] }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
 {% endmacro %}
